@@ -1,0 +1,23 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #393a3d;
+    --white: #fff;
+    --grey: #e5e5e5;
+    --black1: #222;
+    --black2: #999;
+}
+
+html, body {
+    font-family: 'Poppins' !important;
+    min-height: 100vh;
+    background-color: var(--blue);
+}
+
+body {
+    background-color: var(--blue) !important;
+}

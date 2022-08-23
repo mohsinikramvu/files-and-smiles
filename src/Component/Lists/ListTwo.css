@@ -1,0 +1,75 @@
+.listTwo-one{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+/*.listTwo-one .img-box {*/
+/*    height: 60px;*/
+/*    width: 60px;*/
+/*    border-radius: 50%;*/
+/*}*/
+.listTwo-one img {
+    max-width: 60px;
+    border-radius: 50% !important;
+    height: 60px;
+    object-fit: cover;
+}
+.listTwo-one p{
+    /*font-size: 18px;*/
+    font-weight: bold;
+    /*margin-left: 20px;*/
+    margin-bottom: 0;
+}
+.listTwo-two p{
+    color: red;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.listTwoBtn-one {
+    height: 3rem;
+    padding: 0 15px;
+    display: flex;
+    background-color: #21F336;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+}
+.listTwoBtn-two{
+    color: white;
+    padding: 0 18px;
+    border: none;
+    background-color: #00AEEF;
+    border-radius: 3px;
+}
+
+.listTwo-three .power-icon{
+    color: white;
+    height: 2rem;
+}
+.listTwo-three{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.listTwo-three p{
+    /*font-size: 16px;*/
+    font-weight: bold;
+    /*margin-left: 0.3rem;*/
+    margin-bottom: 0;
+}
+.listTwo{
+    /*display: flex;*/
+    justify-content: space-between;
+    padding: 0.9rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.month-icon{
+    height: 2rem;
+}

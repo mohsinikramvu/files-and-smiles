@@ -1,0 +1,37 @@
+
+.vertical-menu {
+    z-index: 1001;
+    background: #fff;
+    bottom: 0;
+    margin-top: 0;
+    position: fixed;
+    top: 0px;
+    /*box-shadow: 6px 0px 18px rgb(0 0 0 / 6%);*/
+    width: 280px;
+    background: var(--blue);
+    transition: 1s ease-in-out;
+}
+
+.main-content {
+    overflow: hidden;
+    margin-left: 280px;
+    background-color: var(--grey);
+    border-radius: 35px 0 0 35px;
+    min-height: 100vh;
+    position: relative;
+}
+
+.page-content {
+    padding-bottom: 50px;
+}
+.page-content.header-fixed {
+    padding-top: 150px;
+}
+.page-content.header-relative {
+    padding-top: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+

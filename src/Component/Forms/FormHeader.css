@@ -1,0 +1,17 @@
+.form-heading{
+    width: 100%;
+    /*height:40px;*/
+    background-color: #f6f6f6;
+    padding: 10px;
+    /*line-height: 2rem;*/
+}
+.form-heading h2{
+    margin: 0;
+    /*padding: 5px;*/
+    /*margin-left: 15px;*/
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700 !important;
+    font-style: normal;
+    line-height: 20px;
+    font-size: 20px;
+}
