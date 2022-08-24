@@ -8,8 +8,7 @@ import {Form, Formik} from "formik";
 import {getAllClassroomsService} from "../../services/classrooms";
 //import allActions from "../../actions";
 import {getAllChildBelongsToClass} from "../../services/childrens";
-import childActions from "../../actions";
-import classroomActions from "../../actions";
+import allActions from "../../actions";
 
 function Navbar(props) {
     const [address, setAddress] = useState("");
@@ -26,7 +25,7 @@ function Navbar(props) {
         }
         getAllClassroomsService().then((response) => {
             if (response) {
-                dispatch(classroomActions.getAllClassrooms(response.data));
+                dispatch(allActions.getAllClassrooms(response.data));
             }
         });
     }, [location, dispatch])
@@ -34,7 +33,7 @@ function Navbar(props) {
     const handleChange = (event) => {
         if (event.target.value !== 0) {
             getAllChildBelongsToClass(event.target.value).then((response) => {
-                dispatch(childActions.getAllChilds(response.data));
+                dispatch(allActions.getAllChilds(response.data));
             })
         }
     }
