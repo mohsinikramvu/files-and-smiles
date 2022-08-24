@@ -12,7 +12,7 @@ function Overview() {
             <SingleRow
                 cardRowTitle='Classrooms'
                 Class='red cardbox'
-                ActivityRowText={list !== null ? list.length : '0'}
+                ActivityRowText={list !== null && list !== undefined ? list.length : '0'}
             />
             <SingleRow
                 cardRowTitle='Active Children'
