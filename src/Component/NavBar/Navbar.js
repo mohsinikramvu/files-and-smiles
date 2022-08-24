@@ -55,7 +55,7 @@ function Navbar(props) {
                                     <Form onChange={handleChange} className="p-0">
                                         <SelectField label="" name="classroom" className="w-100 m-0">
                                             <option value={0}>Select a classroom</option>
-                                            {list.length > 0 && list.map((o) => {
+                                            {list && list.length > 0 && list.map((o) => {
                                                 return (
                                                     <option key={o.id} value={o.id}>{o.class_name}</option>
                                                 )
