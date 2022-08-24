@@ -1,15 +1,15 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import Profile from '../../assets/img/profile.png'
 import '../NavBar/navbar.css'
 import {useLocation} from "react-router-dom";
 import SelectField from "../Common/SelectField";
 import {useDispatch, useSelector} from "react-redux";
-import {Form, Formik, useFormik, useFormikContext} from "formik";
+import {Form, Formik} from "formik";
 import {getAllClassroomsService} from "../../services/classrooms";
-import allActions from "../../actions";
+//import allActions from "../../actions";
 import {getAllChildBelongsToClass} from "../../services/childrens";
-import childActions from "../../actions/childActions";
-import classroomActions from "../../actions/classroomActions";
+import childActions from "../../actions";
+import classroomActions from "../../actions";
 
 function Navbar(props) {
     const [address, setAddress] = useState("");
@@ -29,7 +29,7 @@ function Navbar(props) {
                 dispatch(classroomActions.getAllClassrooms(response.data));
             }
         });
-    }, [location])
+    }, [location, dispatch])
     const list = useSelector(state => state.classrooms.list);
     const handleChange = (event) => {
         if (event.target.value !== 0) {

@@ -68,14 +68,14 @@ const MoodsFormComponent = () => {
               <input
                 type="radio"
                 name="status"
-                checked={data["status"] == "active"}
+                checked={data["status"] === "active"}
                 onChange={() => setData({ ...data, status: "active" })}
               />{" "}
               Active
               <input
                 type="radio"
                 name="status"
-                checked={data["status"] == "inactive"}
+                checked={data["status"] === "inactive"}
                 onChange={() => setData({ ...data, status: "inactive" })}
               />{" "}
               In-Active

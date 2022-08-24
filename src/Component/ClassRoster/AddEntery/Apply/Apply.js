@@ -20,7 +20,7 @@ function Apply() {
             <div className="jane">
                 <div className="img-cirle">
                     <div>
-                        <img src={girls}/>
+                        <img src={girls} alt="girl icon" />
                     </div>
                     <div>
                         <h4 className="D">Jane D</h4>

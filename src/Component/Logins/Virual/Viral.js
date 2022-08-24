@@ -30,7 +30,7 @@ function Viral() {
                         <h2>Virtual Areas</h2>
                     </div>
                     <div>
-                        <a href='#'>
+                        <a href='#virtual-areas'>
                             <svg
                                 className='icon-arrow'
                                 width='28'
@@ -65,13 +65,13 @@ function Viral() {
                     purposes and aren't <br/>
                     the same as classrooms - Updates will still be done from the home
                     classroom.
-                    <a className='more' href='#'>
+                    <a className='more' href='#read-more'>
                         READ MORE
                     </a>
                 </p>
                 <div className='confingure'>
                     <h2>Configure Areas</h2>
-                    <a className='add-area' href='#'>
+                    <a className='add-area' href='#configure-areas'>
                         Add a virtual area{' '}
                     </a>
                     <div className='save-btn'>

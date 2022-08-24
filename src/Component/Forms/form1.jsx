@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './form1.css'
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
@@ -126,7 +126,10 @@ const CenterForm = () => {
 }
 
 function Form1() {
-    const [initialValues, setInitialValues] = useState(initialValuesChildForm);
+    const [initialValues, setInitialValues] = useState({});
+    useEffect(() => {
+        setInitialValues(initialValuesChildForm);
+    },[])
     return (
         <>
             <div className="row m-auto w-100">

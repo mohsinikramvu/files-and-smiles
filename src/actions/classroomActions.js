@@ -1,17 +1,12 @@
-const getAllClassrooms = (data) => {
+export const getAllClassrooms = (data) => {
     return {
         type: 'GET_ALL_CLASSROOMS',
         payload: data
     }
 }
 
-const createClassroom = () => {
+export const createClassroom = () => {
     return {
         type: 'CREATE_CLASSROOM'
     }
-}
-
-export default {
-    getAllClassrooms,
-    createClassroom
 }

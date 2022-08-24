@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Container from '@mui/material/Container'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import WcIcon from '@mui/icons-material/Wc'
+// import WcIcon from '@mui/icons-material/Wc'
 import { Button } from '@mui/material'
 import axios from 'axios'
 

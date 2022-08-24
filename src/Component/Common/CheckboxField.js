@@ -1,12 +1,6 @@
 import React from 'react';
 import { useField } from 'formik';
 
-const styleCheckboxField = {
-    width: '1.5em',
-    height: '1.5em',
-    margin: '0',
-}
-
 const CheckboxField = ({ children, className, ...props }) => {
     // React treats radios and checkbox inputs differently other input types, select, and textarea.
     // Formik does this too! When you specify `type` to useField(), it will

@@ -13,7 +13,7 @@ import Staff from "../ClassRoomComponents/Staff/index";
 import Reports from "../../Pages/Reports/Main";
 import EnrollmentTwo from "../ClassRoster/EnrollmentTwo";
 import StaffRoster from "../ClassRoster/StaffRoster/index";
-import Entry from "../../Component/ClassRoster/AddEntery/Entry";
+//import Entry from "../../Component/ClassRoster/AddEntery/Entry";
 import Report1 from "../ClassRoster/Reports/Reports";
 import Journal from "../ClassRoster/Journal/Journal";
 import Planner from "../ClassRoster/Planner/Planner";
@@ -52,7 +52,7 @@ import EpipenbrandTableComponent from "../Management/Epipenbrand/Table";
 import MoodsFormComponent from "../Management/Moods/Form";
 import MoodsTableComponent from "../Management/Moods/Table";
 import CheckinComponent from "../ClassroomActions/Checkin";
-import AddEpiComponent from "../ClassroomActions/AddEpi";
+//import AddEpiComponent from "../ClassroomActions/AddEpi";
 import ActivityComponent from "../ClassroomActions/Activity";
 import HealthComponent from "../ClassroomActions/Health";
 import TemperatureComponent from "../ClassroomActions/Temperature";
@@ -61,7 +61,7 @@ import FoodComponent from "../ClassroomActions/Food";
 import SleepComponent from "../ClassroomActions/Sleep";
 import ToiletComponent from "../ClassroomActions/Toilet";
 import CheckoutComponent from "../ClassroomActions/Checkout";
-import Apply from "../ClassRoster/AddEntery/Apply/Apply";
+//import Apply from "../ClassRoster/AddEntery/Apply/Apply";
 import ClassroomActions from "../ClassroomActions";
 
 function Content() {

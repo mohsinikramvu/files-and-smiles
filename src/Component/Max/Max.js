@@ -70,7 +70,7 @@ function Max() {
                 </div>
                 <div className='password'>
                     <h2>Password</h2>
-                    <a href='#'>Change your password </a>
+                    <a href='#change-pass'>Change your password </a>
                     <div className='change-btn'>
                         <Button>Save Changes</Button>
                     </div>

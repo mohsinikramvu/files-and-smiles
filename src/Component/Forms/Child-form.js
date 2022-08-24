@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Formhead from './Formhead'
 import Enrollment from '../../components/layout/Enrollment/index'
 import Contact from '../../components/layout/Contact/index'
@@ -9,7 +9,10 @@ import {Form, Formik} from "formik";
 import {initialValuesChildForm} from "../../utils/initialValues/childForm";
 
 function Childform() {
-    const [initialValues, setInitialValues] = useState(initialValuesChildForm);
+    const [initialValues, setInitialValues] = useState({});
+    useEffect(() => {
+        setInitialValues(initialValuesChildForm)
+    }, []);
     return (
         <div className="row m-auto w-100">
             <div className="col-md-12">

@@ -1,11 +1,12 @@
-import classroomActions from "./classroomActions"
-import staffActions from "./staffActions"
-import childActions from "./childActions"
+import { getAllClassrooms, createClassroom } from "./classroomActions"
+import { getAllStaff } from "./staffActions"
+import { getAllChilds } from "./childActions"
 
 const allActions = {
-    classroomActions,
-    staffActions,
-    childActions
+    getAllClassrooms,
+    createClassroom,
+    getAllStaff,
+    getAllChilds
 }
 
 export default allActions

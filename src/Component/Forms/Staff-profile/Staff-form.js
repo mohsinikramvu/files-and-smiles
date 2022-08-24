@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Button} from '@mui/material'
 import './staff1.css'
 import { Formik, Form } from 'formik';
@@ -13,10 +13,13 @@ import {
 import {
     removeEmptyValues
 } from "../../../utils/removeEmptyValues";
-import SelectField from "../../Common/SelectField";
+// import SelectField from "../../Common/SelectField";
 
 function Staffform() {
-    const [initialValues, setInitialValues] = useState(initialValuesStaffForm);
+    const [initialValues, setInitialValues] = useState({});
+    useEffect(() => {
+        setInitialValues(initialValuesStaffForm);
+    }, [])
     return (
         <div className='row m-auto w-100'>
             <div className='col-md-12'>

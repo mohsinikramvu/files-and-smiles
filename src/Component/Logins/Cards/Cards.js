@@ -1,8 +1,8 @@
 import React from 'react'
 import Card from '../Card/Card'
 import './Cards.css'
-import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined'
-import Addfeature from '../AddFeature/AddFeature'
+// import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined'
+// import Addfeature from '../AddFeature/AddFeature'
 import {Link} from 'react-router-dom'
 
 function Cards() {

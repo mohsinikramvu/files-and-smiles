@@ -11,7 +11,7 @@ const Lists = [
     },
     {
         id: 2,
-        title: "ClassRoom ",
+        title: "Classroom ",
         icon: <ion-icon name="clipboard"></ion-icon>,
         address: "Staff",
         icon2: <ArrowForwardIosIcon className="class-room-icon"/>,

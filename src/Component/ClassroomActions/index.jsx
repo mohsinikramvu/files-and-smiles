@@ -1,5 +1,5 @@
 import React from "react";
-import AddEntry from "./addEntry/AddEntry";
+//import AddEntry from "./addEntry/AddEntry";
 import {Button} from "@mui/material";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
@@ -15,8 +15,8 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import WcOutlinedIcon from "@mui/icons-material/WcOutlined";
 import SensorDoorOutlinedIcon from "@mui/icons-material/SensorDoorOutlined";
 import AddEntery from "../ClassRoster/AddEntery/AddEntery";
-import {Link, NavLink, Outlet} from "react-router-dom";
-import img from "../ClassRoster/assests/girl.png";
+import {NavLink, Outlet} from "react-router-dom";
+//import img from "../ClassRoster/assests/girl.png";
 import {useSelector} from "react-redux";
 
 function NavOptions() {
@@ -24,12 +24,12 @@ function NavOptions() {
         <>
             <div className="card bg-transparent border-0 mb-20">
                 <div className="card-body d-flex flex-wrap justify-content-between align-items-center gap-3 p-0">
-                    <NavLink to="checkin" className="Link White">
+                    {/*<NavLink to="checkin" className="Link White">*/}
                         <AddEntery
                             imgsrc={<ArrowCircleRightOutlinedIcon className="icon" />}
                             imgtitle="check in"
                         />
-                    </NavLink>
+                    {/*</NavLink>*/}
 
                     <NavLink to="activity" className="Link White">
                         <AddEntery

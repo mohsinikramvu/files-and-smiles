@@ -16,10 +16,10 @@ function Messages() {
                                 <h2>Messaging</h2>
                             </div>
                             <div className='Message-list gap-3'>
-                                <span><a href="#" className='inbox-icon'>Inbox</a></span>
-                                <span><a href='#' className='archived'>Archived</a></span>
-                                <span><a href='#' className='archived'>Scheduled</a></span>
-                                <span><a href='#' className='archived'>Send</a></span>
+                                <span><a href="#inbox" className='inbox-icon'>Inbox</a></span>
+                                <span><a href='#archived' className='archived'>Archived</a></span>
+                                <span><a href='#scheduled' className='archived'>Scheduled</a></span>
+                                <span><a href='#send' className='archived'>Send</a></span>
                             </div>
                         </div>
                         <div className="card-body bg-transparent">
