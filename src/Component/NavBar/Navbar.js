@@ -1,44 +1,25 @@
-import React, {useLayoutEffect, useState} from 'react'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import Profile from '../../assets/img/profile.png'
 import '../NavBar/navbar.css'
-import {useLocation} from "react-router-dom";
+// import {useLocation} from "react-router-dom";
 import SelectField from "../Common/SelectField";
 import {useDispatch, useSelector} from "react-redux";
 import {Form, Formik} from "formik";
-import {getAllClassroomsService} from "../../services/classrooms";
+// import {getAllClassroomsService} from "../../services/classrooms";
 //import allActions from "../../actions";
 import {getAllChildBelongsToClass} from "../../services/childrens";
 import allActions from "../../actions";
 
 function Navbar(props) {
-    // const [address, setAddress] = useState("");
-    const location = useLocation();
+    const [initialValues, setInitialValues] = useState({classroom: 0})
     const dispatch = useDispatch();
-    useLayoutEffect(() => {
-        // let pathArr = location.pathname.split('/');
-        // let matchedPath = "/";
-        // if (pathArr.length > 1 && pathArr[pathArr.length - 1] !== "") {
-        //     matchedPath = pathArr[pathArr.length - 1];
-        // }
-        // if (matchedPath) {
-        //     setAddress(matchedPath);
-        // }
-        getAllClassroomsService().then((response) => {
-            if (response) {
-                dispatch(allActions.getAllClassrooms(response.data));
-            }
-        });
-    }, [location, dispatch])
     const list = useSelector(state => {
         if (state.classrooms) {
             return state.classrooms.list;
         }
         return undefined;
     });
-    console.log(list);
-    const classroomID = useSelector(state => {
-        return state.classrooms.classroomID;
-    });
+    const classID = useSelector(state => state.classrooms.classroomID);
     const handleChange = (event) => {
         dispatch(allActions.putClassroomID(event.target.value));
         if (event.target.value !== 0) {
@@ -47,6 +28,13 @@ function Navbar(props) {
             })
         }
     }
+    useEffect(() => {
+        if (classID) {
+            setInitialValues({
+                classroom: parseInt(classID)
+            })
+        }
+    }, [classID]);
     return (
         <>
             <div className={`page-header Navbar-content px-5 d-flex flex-wrap justify-content-between align-items-center ${props.fixed ? 'position-fixed' : 'position-relative'}`}>
@@ -68,7 +56,7 @@ function Navbar(props) {
                     {/*    address === "notes" ||*/}
                     {/*    address === "checkout" ? (*/}
                         <Formik
-                            initialValues={{ classroom: classroomID && classroomID > 0 ? parseInt(classroomID) : 0 }}
+                            initialValues={initialValues}
                             onSubmit={(values) => {
                                 console.log(values);
                             }}
@@ -84,7 +72,6 @@ function Navbar(props) {
                                                 )
                                             })}
                                         </SelectField>
-                                        {/*<SubmitValue />*/}
                                     </Form>
                                 </>
                             )}

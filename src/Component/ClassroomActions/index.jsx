@@ -49,7 +49,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<AccessTimeOutlinedIcon className="icon" />}
                         imgtitle="Activity"
                     />}
-                    {selectedChild !== 0 ? <NavLink to="health" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="health" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<LocalHospitalOutlinedIcon className="icon" />}
@@ -60,7 +60,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<LocalHospitalOutlinedIcon className="icon" />}
                         imgtitle="Health"
                     /> }
-                    {selectedChild !== 0 ? <NavLink to={`temperature/${selectedChild}`} className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="temperature" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<ThermostatAutoOutlinedIcon className="icon" />}
@@ -71,7 +71,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<ThermostatAutoOutlinedIcon className="icon" />}
                         imgtitle="Temperature"
                     />}
-                    {selectedChild !== 0 ? <NavLink to="fluids" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="fluids" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<WidgetsOutlinedIcon className="icon" />}
@@ -83,7 +83,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Fluids"
                     />}
     
-                    {selectedChild !== 0 ? <NavLink to="food" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="food" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<SetMealOutlinedIcon className="icon" />}
@@ -94,7 +94,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<SetMealOutlinedIcon className="icon" />}
                         imgtitle="Food"
                     />}
-                    {selectedChild !== 0 ? <NavLink to="sleep" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="sleep" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<BedtimeOutlinedIcon className="icon" />}
@@ -106,7 +106,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Sleep"
                     />}
     
-                    {selectedChild !== 0 ? <NavLink to="toilet" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="toilet" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<ShowerOutlinedIcon className="icon" />}
@@ -118,7 +118,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Toilet"
                     />}
     
-                    {selectedChild !== 0 ? <NavLink to="mood" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="mood" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<SentimentDissatisfiedOutlinedIcon className="icon" />}
@@ -130,7 +130,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Mood"
                     />}
     
-                    {selectedChild !== 0 ? <NavLink to="supplies" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="supplies" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<BlenderOutlinedIcon className="icon" />}
@@ -142,7 +142,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Supplies"
                     />}
     
-                    {selectedChild !== 0 ? <NavLink to="notes" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="notes" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<DescriptionOutlinedIcon className="icon" />}
@@ -162,7 +162,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<SensorDoorOutlinedIcon className="icon" />}
                         imgtitle="Move rooms"
                     />
-                    {selectedChild !== 0 ? <NavLink to="checkout" className="Link White">
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="checkout" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<ArrowCircleRightOutlinedIcon className="icon" />}
@@ -193,7 +193,7 @@ function ApplyToSection({ childList, childID }) {
                 </div>
                 <div className="card-body">
                     <Formik
-                        initialValues={{ child: childID ? parseInt(childID) : 0 }}
+                        initialValues={{ child: childID !== undefined ? parseInt(childID) : 0 }}
                         onSubmit={(values) => {
                             console.log(values);
                         }}
@@ -239,11 +239,7 @@ const ClassroomActionsComponent = () => {
         }
         return undefined
     });
-    const childID = useSelector(state => {
-        if (state.childs.childID) {
-            return state.childs.childID;
-        }
-    })
+    const childID = useSelector(state => state.childs.childID);
     const notifyAction = () => {
         if (childID === undefined || childID === 0) {
             toast.error('Please select child from the list below!', {

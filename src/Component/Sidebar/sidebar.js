@@ -2,6 +2,9 @@ import React, {useLayoutEffect, useState} from "react"
 import {NavLink, useLocation} from "react-router-dom";
 import logo from "./../../assets/img/logo.PNG";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllClassroomsService} from "../../services/classrooms";
+import allActions from "../../actions";
 const Lists = [
     {
         id: 1,
@@ -102,6 +105,8 @@ function Sidebar() {
         setActive(result);
     };
     const location = useLocation();
+    const dispatch = useDispatch();
+    const clsList = useSelector(state => state.classrooms.list);
     useLayoutEffect(() => {
         let pathArr = location.pathname.split('/');
         let matchedPath = "/";
@@ -113,7 +118,14 @@ function Sidebar() {
             let result = Lists.find((item, i) => itemIndex === i && item)
             setActive(result);
         }
-    }, [location])
+        if (clsList.length > 0) {
+            getAllClassroomsService().then((response) => {
+                if (response) {
+                    dispatch(allActions.getAllClassrooms(response.data));
+                }
+            });
+        }
+    }, [location, dispatch])
     
     return (
         <div className="navigation">

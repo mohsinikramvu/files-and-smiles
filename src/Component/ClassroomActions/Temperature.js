@@ -17,7 +17,7 @@ import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
 
 const TemperatureComponent = () => {
-    const childID = useSelector(state => state.childID);
+    const childID = useSelector(state => state.childs.childID);
     return (
         <>
             <div className="card">
@@ -41,6 +41,7 @@ const TemperatureComponent = () => {
                         }}
                         onSubmit={(values, {setSubmitting}) => {
                             if (childID) {
+                                console.log(childID);
                                 const result = {...values, kid: childID, id: 1};
                                 console.log(result)
                                 saveChildTemperature(result).then((response) => {
