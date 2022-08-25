@@ -10,3 +10,11 @@ export const createClassroom = () => {
         type: 'CREATE_CLASSROOM'
     }
 }
+
+export const putClassroomID = (data) => {
+    console.log(data);
+    return {
+        type: 'PUT_CLASSROOM_ID',
+        payload: data
+    }
+}

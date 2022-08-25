@@ -1,9 +1,9 @@
 import React from 'react'
 import './addentry.css'
 
-function AddEntery({imgsrc, imgtitle}) {
+function AddEntery({imgsrc, imgtitle, onClick}) {
     return (
-        <div className='Add-entry-container'>
+        <div className='Add-entry-container' onClick={onClick && onClick}>
             <div className='Entery'>
                 <div>
                     <div className='Sub_icon'>{imgsrc} </div>

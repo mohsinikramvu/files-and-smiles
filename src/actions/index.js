@@ -1,12 +1,15 @@
-import { getAllClassrooms, createClassroom } from "./classroomActions"
+import { getAllClassrooms, createClassroom, putClassroomID } from "./classroomActions"
 import { getAllStaff } from "./staffActions"
-import { getAllChilds } from "./childActions"
+import { getAllChilds, putChildID, putCheckInStatus } from "./childActions"
 
 const allActions = {
     getAllClassrooms,
     createClassroom,
+    putClassroomID,
     getAllStaff,
-    getAllChilds
+    getAllChilds,
+    putChildID,
+    putCheckInStatus
 }
 
 export default allActions

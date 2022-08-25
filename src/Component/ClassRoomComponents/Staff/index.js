@@ -23,7 +23,6 @@ import CheckinComponent from "../../ClassroomActions/Checkin";
 
 const Staff = () => {
     const childList = useSelector(state => state.childs.list);
-    console.log(childList);
     return (
         <>
             <div className="row m-auto w-100">

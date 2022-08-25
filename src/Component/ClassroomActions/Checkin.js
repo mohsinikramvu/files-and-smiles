@@ -6,11 +6,17 @@ import "./card.css";
 import Button from "@mui/material/Button";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AddEpiComponent from "./AddEpi";
+import {useDispatch} from "react-redux";
+import allActions from "../../actions";
 
 const CheckinComponent = ({childList}) => {
     const [tab, setTab] = useState("");
     const handleTab = (item) => {
         setTab(item);
+    }
+    const dispatch = useDispatch();
+    const childCheckInStatus = (i, checkInStatus) => {
+        dispatch(allActions.putCheckInStatus({child: i, checkInStatus}));
     }
     return (
         <div className="card">
@@ -132,9 +138,9 @@ const CheckinComponent = ({childList}) => {
                             <table className="mb-20">
                                 <tbody>
                                 {childList.length > 0 ? (
-                                    childList.map((item) => {
+                                    childList.map((item, index) => {
                                         return (
-                                            <tr className='listTwo'>
+                                            <tr key={index} className='listTwo'>
                                                 <td className='listTwo-one'>
                                                     <div className="img-box">
                                                         <img src={item.profile_picture} alt='profile'
@@ -146,7 +152,7 @@ const CheckinComponent = ({childList}) => {
                                                     <p>{item.checkin_status === 0 ? 'Not Present' : 'Present'}</p>
                                                 </td>
                                                 <td className='listTwo-three staff-btns'>
-                                                    <Button className='btn' variant='contained'>
+                                                    <Button className='btn' variant='contained' onClick={() => childCheckInStatus(item, true)}>
                                                         <svg
                                                             width='24'
                                                             height='24'
@@ -159,7 +165,7 @@ const CheckinComponent = ({childList}) => {
                                                                 fill='#FEFEFE'
                                                             />
                                                         </svg>
-                                                        Check in
+                                                        {item.checkin_status === 0 ? 'Check In' : 'Check Out'}
                                                     </Button>
                                                     <Button variant='contained'>
                                                         <CalendarMonthIcon/>

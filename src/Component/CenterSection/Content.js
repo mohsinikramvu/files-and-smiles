@@ -84,7 +84,7 @@ function Content() {
                     <Route path="activity" element={<ActivityComponent/>}/>
                     <Route path="health" element={<HealthComponent/>}/>
                     <Route path="fluids" element={<FluidsComponent/>}/>
-                    <Route path="temperature" element={<TemperatureComponent/>}/>
+                    <Route path="temperature/:id" element={<TemperatureComponent/>}/>
                     <Route path="food" element={<FoodComponent/>}/>
                     <Route path="sleep" element={<SleepComponent/>}/>
                     <Route path="toilet" element={<ToiletComponent/>}/>

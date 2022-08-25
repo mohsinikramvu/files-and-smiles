@@ -1,7 +1,7 @@
 .Entery {
   width: 10vw;
-  height: 7rem;
-  background-color: #dcebf1;
+  height: 10rem;
+  background-color: #b1d8e7;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -9,11 +9,11 @@
   line-height: 1rem;
   margin: 0.3rem;
 }
-.Entery:hover  {
+.Entery:hover, .Link.active .Entery  {
   background-color: red;
   color: #fff;
 }
-.Entery:hover .css-i4bv87-MuiSvgIcon-root{
+.Entery:hover .css-i4bv87-MuiSvgIcon-root, .White.active {
   color: white;
 }
 .r-one {
@@ -29,7 +29,7 @@
   width: 2.5rem !important;
   color: #EA1F25;
 }
-.Sub_icon:hover svg {
+.Sub_icon:hover svg, .White.active .Sub_icon svg {
   color: #fff !important;
 }
 .css-i4bv87-MuiSvgIcon-root {
