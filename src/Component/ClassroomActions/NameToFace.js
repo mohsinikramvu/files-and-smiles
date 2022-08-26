@@ -1,42 +1,41 @@
 import React, {useState} from "react";
 import "./style.css";
-import {validateFirstName, validateLastName} from "../../utils/validations/validateStaffForm";
+import {validateLastName} from "../../utils/validations/validateStaffForm";
 import {removeEmptyValues} from "../../utils/removeEmptyValues";
-import {saveChildSleep} from "../../services/childrens";
+import {saveChildNameToFace} from "../../services/childrens";
 import {toast} from "react-toastify";
 import InputField from "../Common/InputField";
 import TextareaField from "../Common/TextareaField";
 import {Formik} from "formik";
-import CheckboxField from "../Common/CheckboxField";
 import {useSelector} from "react-redux";
 
-function Sleep() {
+function NameToFace() {
     const childID = useSelector(state => state.childs.childID);
-    const [initialData, setInitialData] = useState({start_time: '', end_time: '', sleep: 0, notes: ''});
+    const [initialData, setInitialData] = useState({ time: "", notes: ''});
     return (
         <div className="card">
             <div className="card-header">
-                Sleep
+                Name to Face
             </div>
             <div className="card-body">
                 <Formik
                     initialValues={initialData}
                     validate={values => {
-                        const {start_time, end_time, notes} = values;
+                        console.log(values);
+                        const {time, notes} = values;
                         let result = {
-                            start_time: validateFirstName(start_time),
-                            end_time: validateLastName(end_time),
+                            time: validateLastName(time),
                             notes: validateLastName(notes),
                         };
                         result = removeEmptyValues(result);
                         return result;
                     }}
-                    onSubmit={(values) => {
+                    onSubmit={(values, {setSubmitting}) => {
                         if (childID) {
                             const result = {...values, kid: childID, id: 1};
-                            saveChildSleep(result).then((response) => {
+                            saveChildNameToFace(result).then((response) => {
                                 if (response.success) {
-                                    toast.success('Sleep Activity completed successfully!', {
+                                    toast.success('Name to Face completed successfully!', {
                                         position: "top-right",
                                         autoClose: 5000,
                                         hideProgressBar: false,
@@ -63,27 +62,23 @@ function Sleep() {
                         }
                     }}
                 >
-                    {({handleSubmit}) => (
+                    {({
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          handleSubmit,
+                        }) => (
                         <form onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="col-md-6">
                                     <InputField
                                         type="time"
-                                        name="start_time"
+                                        name="time"
                                         placeholder="xxxxxxxxxxxx"
-                                        label="Start Time"
+                                        label="Time"
                                     />
-                                    <InputField
-                                        type="time"
-                                        name="end_time"
-                                        placeholder="xxxxxxxxxxxx"
-                                        label="End Time"
-                                    />
-                                    <CheckboxField
-                                        type="checkbox"
-                                        name="sleep"
-                                        children="Sleep Check"
-                                        className="checkbox-outline mb-3" />
                                     <TextareaField
                                         label="Notes"
                                         name="notes"
@@ -102,4 +97,4 @@ function Sleep() {
     );
 }
 
-export default Sleep;
+export default NameToFace;

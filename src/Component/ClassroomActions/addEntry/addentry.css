@@ -10,7 +10,7 @@
     margin: 0.3rem;
 }
 
-.Entery:hover {
+.Entery:hover, .Link.active .Entery {
     background-color: red;
     color: #fff;
 }

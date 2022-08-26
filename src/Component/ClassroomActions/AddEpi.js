@@ -6,17 +6,17 @@ import {Formik} from "formik";
 import InputField from "../Common/InputField";
 import SelectField from "../Common/SelectField";
 
-export const brandList = [
-    {id: 1, name: "Brand 1"},
-    {id: 2, name: "Brand 2"},
-    {id: 3, name: "Brand 3"},
-]
-
-export const quantityList = [
-    {id: 1, name: "Quantity 1"},
-    {id: 2, name: "Quantity 2"},
-    {id: 3, name: "Quantity 3"},
-]
+// export const brandList = [
+//     {value: 1, label: "Brand 1"},
+//     {value: 2, label: "Brand 2"},
+//     {value: 3, label: "Brand 3"},
+// ]
+//
+// export const quantityList = [
+//     {value: 1, label: "Quantity 1"},
+//     {value: 2, label: "Quantity 2"},
+//     {value: 3, label: "Quantity 3"},
+// ]
 
 const AddEpiComponent = () => {
     return (
@@ -55,17 +55,25 @@ const AddEpiComponent = () => {
                                 />
                                 <SelectField label="Brand" name="brand" className="w-100 mb-20">
                                     <option value={0}>Select a Brand</option>
-                                    {brandList.length > 0 && brandList.map((o) => {
+                                    {[
+                                        {value: 1, label: "Brand 1"},
+                                        {value: 2, label: "Brand 2"},
+                                        {value: 3, label: "Brand 3"},
+                                    ].map((o) => {
                                         return (
-                                            <option key={o.id} value={o.id}>{o.name}</option>
+                                            <option key={o.value} value={o.value}>{o.label}</option>
                                         )
                                     })}
                                 </SelectField>
                                 <SelectField label="Quantity" name="quantity" className="w-100 mb-20">
                                     <option value={0}>Select a quantity</option>
-                                    {quantityList.length > 0 && quantityList.map((o) => {
+                                    {[
+                                        {value: 1, label: "Quantity 1"},
+                                        {value: 2, label: "Quantity 2"},
+                                        {value: 3, label: "Quantity 3"},
+                                    ].map((o) => {
                                         return (
-                                            <option key={o.id} value={o.id}>{o.name}</option>
+                                            <option key={o.value} value={o.value}>{o.label}</option>
                                         )
                                     })}
                                 </SelectField>

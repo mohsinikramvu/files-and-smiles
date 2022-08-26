@@ -6,16 +6,22 @@ import "./card.css";
 import Button from "@mui/material/Button";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AddEpiComponent from "./AddEpi";
+// import {useDispatch} from "react-redux";
+// import allActions from "../../actions";
 
 const CheckinComponent = ({childList}) => {
     const [tab, setTab] = useState("");
     const handleTab = (item) => {
         setTab(item);
     }
+    // const dispatch = useDispatch();
+    const childCheckInStatus = (i, checkInStatus) => {
+        // dispatch(allActions.putCheckInStatus({child: i, checkInStatus}));
+    }
     return (
         <div className="card">
             <div className="card-header">
-                <h2>Check In</h2>
+                <h2>Classrooms</h2>
             </div>
             <div className="card-body">
                 <div className="row">
@@ -41,7 +47,7 @@ const CheckinComponent = ({childList}) => {
                     <div className="col-md-4 mb-20">
                         <div
                             className="form-group p-3 bg-primary d-flex flex-wrap gap-2 flex-column justify-content-between h-100">
-                            <h3 className="text-white text-center">5</h3>
+                            <h3 className="text-white text-center">{childList.length}</h3>
                             <p className="text-white text-center m-0">Children</p>
                         </div>
                     </div>
@@ -132,9 +138,9 @@ const CheckinComponent = ({childList}) => {
                             <table className="mb-20">
                                 <tbody>
                                 {childList.length > 0 ? (
-                                    childList.map((item) => {
+                                    childList.map((item, index) => {
                                         return (
-                                            <tr className='listTwo'>
+                                            <tr key={index} className='listTwo'>
                                                 <td className='listTwo-one'>
                                                     <div className="img-box">
                                                         <img src={item.profile_picture} alt='profile'
@@ -146,7 +152,7 @@ const CheckinComponent = ({childList}) => {
                                                     <p>{item.checkin_status === 0 ? 'Not Present' : 'Present'}</p>
                                                 </td>
                                                 <td className='listTwo-three staff-btns'>
-                                                    <Button className='btn' variant='contained'>
+                                                    <Button className='btn' variant='contained' onClick={() => childCheckInStatus(item, true)}>
                                                         <svg
                                                             width='24'
                                                             height='24'
@@ -159,7 +165,7 @@ const CheckinComponent = ({childList}) => {
                                                                 fill='#FEFEFE'
                                                             />
                                                         </svg>
-                                                        Check in
+                                                        {item.checkin_status === 0 ? 'Check In' : 'Check Out'}
                                                     </Button>
                                                     <Button variant='contained'>
                                                         <CalendarMonthIcon/>

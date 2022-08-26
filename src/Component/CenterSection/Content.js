@@ -60,6 +60,10 @@ import FluidsComponent from "../ClassroomActions/Fluids";
 import FoodComponent from "../ClassroomActions/Food";
 import SleepComponent from "../ClassroomActions/Sleep";
 import ToiletComponent from "../ClassroomActions/Toilet";
+import MoodComponent from "../ClassroomActions/Mood";
+import SuppliesComponent from "../ClassroomActions/Supply";
+import NotesComponent from "../ClassroomActions/Note";
+import NameToFaceComponent from "../ClassroomActions/NameToFace";
 import CheckoutComponent from "../ClassroomActions/Checkout";
 //import Apply from "../ClassRoster/AddEntery/Apply/Apply";
 import ClassroomActions from "../ClassroomActions";
@@ -88,6 +92,10 @@ function Content() {
                     <Route path="food" element={<FoodComponent/>}/>
                     <Route path="sleep" element={<SleepComponent/>}/>
                     <Route path="toilet" element={<ToiletComponent/>}/>
+                    <Route path="mood" element={<MoodComponent/>}/>
+                    <Route path="supplies" element={<SuppliesComponent/>}/>
+                    <Route path="notes" element={<NotesComponent/>}/>
+                    <Route path="nameToFace" element={<NameToFaceComponent/>}/>
                     <Route path="checkout" element={<CheckoutComponent/>}/>
                 </Route>
                 <Route path="StaffRoster" element={<StaffRoster/>}/>

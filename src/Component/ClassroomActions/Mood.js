@@ -4,37 +4,36 @@ import React, {useState} from "react";
 // import girls from "../ClassRoster/assests/girl.png";
 import "./style.css";
 import InputField from "../Common/InputField";
-// import SelectField from "../Common/SelectField";
+import SelectField from "../Common/SelectField";
 import {Formik} from "formik";
 // import {brandList, quantityList} from "./AddEpi";
 import TextareaField from "../Common/TextareaField";
-import RadioField from "../Common/RadioField";
+// import RadioField from "../Common/RadioField";
 // import {useParams} from "react-router-dom";
 import {validateFirstName, validateLastName} from "../../utils/validations/validateStaffForm";
 import {removeEmptyValues} from "../../utils/removeEmptyValues";
-import {saveChildTemperature} from "../../services/childrens";
+import {saveChildMood} from "../../services/childrens";
 import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
 
-const TemperatureComponent = () => {
+const Mood = () => {
     const childID = useSelector(state => state.childs.childID);
-    const [initialData, setInitialData] = useState({time: '', health: '', temperature: '', notes: ''});
+    const [initialData, setInitialData] = useState({mood: 0, level: 0, notes: ''});
     return (
         <>
             <div className="card">
                 <div className="card-header">
-                    Temperature
+                    Mood
                 </div>
                 <div className="card-body">
                     <Formik
                         initialValues={initialData}
                         validate={values => {
                             console.log(values);
-                            const {time, health, temperature, notes} = values;
+                            const {mood, level, notes} = values;
                             let result = {
-                                time: validateFirstName(time),
-                                health: validateLastName(health),
-                                temperature: validateLastName(temperature),
+                                mood: validateFirstName(mood),
+                                level: validateLastName(level),
                                 notes: validateLastName(notes),
                             };
                             result = removeEmptyValues(result);
@@ -42,12 +41,10 @@ const TemperatureComponent = () => {
                         }}
                         onSubmit={(values, {setSubmitting}) => {
                             if (childID) {
-                                console.log(childID);
                                 const result = {...values, kid: childID, id: 1};
-                                console.log(result)
-                                saveChildTemperature(result).then((response) => {
+                                saveChildMood(result).then((response) => {
                                     if (response.success) {
-                                        toast.success('Temperature completed successfully!', {
+                                        toast.success('Mood completed successfully!', {
                                             position: "top-right",
                                             autoClose: 5000,
                                             hideProgressBar: false,
@@ -86,24 +83,24 @@ const TemperatureComponent = () => {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <InputField
-                                            type="time"
-                                            name="time"
+                                            type="number"
+                                            name="mood"
                                             placeholder="xxxxxxxxxxxx"
-                                            label="Time"
+                                            label="Mood"
                                         />
-                                        <RadioField
-                                            type="radio"
-                                            label="Health"
-                                            className="custom-radio mb-20"
-                                            name="health"
-                                            data={[{label: "Normal", value: 0}, {label: "Fever", value: 1}]}
-                                        />
-                                        <InputField
-                                            type="text"
-                                            name="temperature"
-                                            placeholder="Enter Temperature"
-                                            label="Temperature"
-                                        />
+                                        <SelectField label="Level" name="level" className="w-100 mb-20">
+                                            {[
+                                                {label: "Slightly", value: 0},
+                                                {label: "Somewhat", value: 1},
+                                                {label: "Very", value: 2},
+                                                {label: "Extremely", value: 3},
+                                                {label: "N/A", value: 4}
+                                            ].map((o) => {
+                                                return (
+                                                    <option key={o.value} value={o.value}>{o.label}</option>
+                                                )
+                                            })}
+                                        </SelectField>
                                         <TextareaField
                                             label="Notes"
                                             name="notes"
@@ -123,4 +120,4 @@ const TemperatureComponent = () => {
     );
 };
 
-export default TemperatureComponent;
+export default Mood;
