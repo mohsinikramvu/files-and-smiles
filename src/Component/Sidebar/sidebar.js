@@ -125,7 +125,7 @@ function Sidebar() {
                 }
             });
         }
-    }, [location, dispatch])
+    }, [location, dispatch, clsList.length])
     
     return (
         <div className="navigation">
