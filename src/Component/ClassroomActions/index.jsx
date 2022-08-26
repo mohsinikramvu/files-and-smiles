@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import AddEntry from "./addEntry/AddEntry";
-import {Button} from "@mui/material";
+import React from "react";
+// import AddEntry from "./addEntry/AddEntry";
+// import {Button} from "@mui/material";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
@@ -18,8 +18,8 @@ import AddEntery from "../ClassRoster/AddEntery/AddEntery";
 import {NavLink, Outlet} from "react-router-dom";
 //import img from "../ClassRoster/assests/girl.png";
 import {useDispatch, useSelector} from "react-redux";
-import {Form, Formik} from "formik";
-import SelectField from "../Common/SelectField";
+// import {Form, Formik} from "formik";
+// import SelectField from "../Common/SelectField";
 // import {toast} from "react-toastify";
 // import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -153,11 +153,17 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<DescriptionOutlinedIcon className="icon" />}
                         imgtitle="Notes"
                     />}
-
+    
+                    {selectedChild && selectedChild !== 0 ? <NavLink to="nameToFace" className="Link White">
                     <AddEntery
+                        onClick={notifyAction}
                         imgsrc={<WcOutlinedIcon className="icon" />}
                         imgtitle="Name to Face"
-                    />
+                    /></NavLink> : <AddEntery
+                        onClick={notifyAction}
+                        imgsrc={<WcOutlinedIcon className="icon" />}
+                        imgtitle="Name to Face"
+                    />}
                     <AddEntery
                         imgsrc={<SensorDoorOutlinedIcon className="icon" />}
                         imgtitle="Move rooms"
@@ -188,44 +194,17 @@ function ApplyToSection({ childList, childID }) {
         <>
             <div className="card mb-20">
                 <div className="card-header bg-transparent d-flex flex-wrap justify-content-between align-items-center gap-3 p-3">
-                    <h2 className="fs-5">Apply To</h2>
-                    <Button className="btn btn-success select-all-btn" type="submit">Select All</Button>
+                    <h2 className="fs-5">Select Child</h2>
                 </div>
                 <div className="card-body">
-                    <Formik
-                        initialValues={{ child: childID !== undefined ? parseInt(childID) : 0 }}
-                        onSubmit={(values) => {
-                            console.log(values);
-                        }}
-                    >
-                        {(values) => (
-                            <>
-                                <Form onChange={handleChange} className="p-0">
-                                    <SelectField label="" name="child" className="w-100 m-0">
-                                        <option value={0}>Select a child</option>
-                                        {childList && childList.length > 0 && childList.map((o) => {
-                                            return (
-                                                <option key={o.id} value={o.id}>{o.fullname}</option>
-                                            )
-                                        })}
-                                    </SelectField>
-                                </Form>
-                            </>
-                        )}
-                    </Formik>
-                    {/*<div className="">*/}
-                    {/*    <select name="child" id="child" className="form-control" onChange={setSelectedChild}>*/}
-                    {/*        {childList.map((o) => {*/}
-                    {/*            return (*/}
-                    {/*                <>*/}
-                    {/*                    <option key={o.id} value={o.id}>*/}
-                    {/*                        {o.fullname}*/}
-                    {/*                    </option>*/}
-                    {/*                </>*/}
-                    {/*            )*/}
-                    {/*        })}*/}
-                    {/*    </select>*/}
-                    {/*</div>*/}
+                    <select name="classroom" id="classroom" className="form-control" onChange={handleChange} value={childID}>
+                        <option value={0}>Select a child</option>
+                        {childList && childList.length > 0 && childList.map((o) => {
+                            return (
+                                <option key={o.id} value={o.id}>{o.fullname}</option>
+                            )
+                        })}
+                    </select>
                 </div>
             </div>
         </>

@@ -1,82 +1,122 @@
-import React from "react";
+import React, {useState} from "react";
 import "./style.css";
-import {Button} from "@mui/material";
+// import {Button} from "@mui/material";
+import {validateFirstName, validateLastName} from "../../utils/validations/validateStaffForm";
+import {removeEmptyValues} from "../../utils/removeEmptyValues";
+import {saveChildFluids} from "../../services/childrens";
+import {toast} from "react-toastify";
+import InputField from "../Common/InputField";
+// import RadioField from "../Common/RadioField";
+import TextareaField from "../Common/TextareaField";
+import {Formik} from "formik";
+import SelectField from "../Common/SelectField";
+import {useSelector} from "react-redux";
 
 function Fluids() {
+    const childID = useSelector(state => state.childs.childID);
+    const [initialData, setInitialData] = useState({time: '', fluid: 0, quantity: '', notes: ''});
     return (
-        <div className="container-fluid">
-            <h3>Time</h3>
-            <div className="time">
-                <select>
-                    <option>6 AM</option>
-                    <option>7 AM</option>
-                    <option>8 AM</option>
-                    <option>9 AM</option>
-                    <option>10 AM</option>
-                </select>
-                <p>:</p>
-                <select>
-                    <option>10</option>
-                    <option>20</option>
-                    <option>30</option>
-                    <option>40</option>
-                    <option>50</option>
-                    <option>59</option>
-                </select>
+        <div className="card">
+            <div className="card-header">
+                Fluids
             </div>
-            <div className="minimize-time">
-                <span>-5</span>
-                <span>-10</span>
-                <span>-15</span>
-                <span>-30</span>
-                <span>Now</span>
+            <div className="card-body">
+                <Formik
+                    initialValues={initialData}
+                    validate={values => {
+                        console.log(values);
+                        const {time, fluid, quantity, notes} = values;
+                        let result = {
+                            time: validateFirstName(time),
+                            fluid: validateLastName(fluid),
+                            quantity: validateLastName(quantity),
+                            notes: validateLastName(notes),
+                        };
+                        result = removeEmptyValues(result);
+                        return result;
+                    }}
+                    onSubmit={(values, {setSubmitting}) => {
+                        if (childID) {
+                            const result = {...values, kid: childID, id: 1};
+                            saveChildFluids(result).then((response) => {
+                                if (response.success) {
+                                    toast.success('Fluids completed successfully!', {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                    });
+                                    setInitialData(initialData);
+                                    return undefined;
+                                }
+                            });
+                        } else {
+                            toast.error('Please select child from the list below!', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                            return undefined;
+                        }
+                    }}
+                >
+                    {({
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          handleSubmit,
+                        }) => (
+                        <form onSubmit={handleSubmit}>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <InputField
+                                        type="time"
+                                        name="time"
+                                        placeholder="xxxxxxxxxxxx"
+                                        label="Time"
+                                    />
+                                    <SelectField label="Fluid" name="fluid" className="w-100 mb-20">
+                                        {[
+                                            {label: "Milk", value: 0},
+                                            {label: "Formula", value: 1},
+                                            {label: "Breast Milk", value: 2},
+                                            {label: "Water", value: 3},
+                                            {label: "Other", value: 4},
+                                        ].map((o) => {
+                                            return (
+                                                <option key={o.value} value={o.value}>{o.label}</option>
+                                            )
+                                        })}
+                                    </SelectField>
+                                    <InputField
+                                        type="text"
+                                        name="quantity"
+                                        placeholder="Enter Quantity"
+                                        label="Quantity"
+                                    />
+                                    <TextareaField
+                                        label="Notes"
+                                        name="notes"
+                                        placeholder="Enter Notes"
+                                    />
+                                </div>
+                            </div>
+                            <button type="submit" className="btn btn-success select-all-btn">
+                                Submit
+                            </button>
+                        </form>
+                    )}
+                </Formik>
             </div>
-            <h3>Fluid</h3>
-            <div className="fluid-items-container">
-                <div className="fluid-item">
-                    <input type="radio" name="fluid"/>
-                    <p>Milk</p>
-                </div>
-                <div className="fluid-item">
-                    <input type="radio" name="fluid"/>
-                    <p>Formula</p>
-                </div>
-                <div className="fluid-item">
-                    <input type="radio" name="fluid"/>
-                    <p>Breast Milk</p>
-                </div>
-                <div className="fluid-item">
-                    <input type="radio" name="fluid"/>
-                    <p>Water</p>
-                </div>
-                <div className="fluid-item">
-                    <input type="radio" name="fluid"/>
-                    <p>Other</p>
-                </div>
-            </div>
-            <div className="floz">
-                <h3>Floz</h3>
-                <select>
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                </select>
-            </div>
-            <div className="note-container">
-                <h3>Notes</h3>
-                <textarea></textarea>
-            </div>
-            <Button
-                variant="contained"
-                className="btn-end"
-                style={{marginTop: "15px"}}
-            >
-                Create Entry
-            </Button>
         </div>
     );
 }

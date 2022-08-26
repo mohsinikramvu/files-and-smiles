@@ -6,22 +6,22 @@ import "./card.css";
 import Button from "@mui/material/Button";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AddEpiComponent from "./AddEpi";
-import {useDispatch} from "react-redux";
-import allActions from "../../actions";
+// import {useDispatch} from "react-redux";
+// import allActions from "../../actions";
 
 const CheckinComponent = ({childList}) => {
     const [tab, setTab] = useState("");
     const handleTab = (item) => {
         setTab(item);
     }
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const childCheckInStatus = (i, checkInStatus) => {
-        dispatch(allActions.putCheckInStatus({child: i, checkInStatus}));
+        // dispatch(allActions.putCheckInStatus({child: i, checkInStatus}));
     }
     return (
         <div className="card">
             <div className="card-header">
-                <h2>Check In</h2>
+                <h2>Classrooms</h2>
             </div>
             <div className="card-body">
                 <div className="row">
@@ -47,7 +47,7 @@ const CheckinComponent = ({childList}) => {
                     <div className="col-md-4 mb-20">
                         <div
                             className="form-group p-3 bg-primary d-flex flex-wrap gap-2 flex-column justify-content-between h-100">
-                            <h3 className="text-white text-center">5</h3>
+                            <h3 className="text-white text-center">{childList.length}</h3>
                             <p className="text-white text-center m-0">Children</p>
                         </div>
                     </div>

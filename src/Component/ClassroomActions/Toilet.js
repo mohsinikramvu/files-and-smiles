@@ -1,98 +1,131 @@
-import React from "react";
+import React, {useState} from "react";
 import "./style.css";
-import { Button } from "@mui/material";
+// import {Button} from "@mui/material";
+import {Formik} from "formik";
+import {validateFirstName, validateLastName} from "../../utils/validations/validateStaffForm";
+import {removeEmptyValues} from "../../utils/removeEmptyValues";
+import {saveChildToilet} from "../../services/childrens";
+import {toast} from "react-toastify";
+import InputField from "../Common/InputField";
+// import RadioField from "../Common/RadioField";
+import TextareaField from "../Common/TextareaField";
+import SelectField from "../Common/SelectField";
+import {useSelector} from "react-redux";
 
 function Toilet() {
-  return (
-    <div>
-      <div className="container-fluid">
-        <h3>Time</h3>
-        <div className="time">
-          <select>
-            <option>6 AM</option>
-            <option>7 AM</option>
-            <option>8 AM</option>
-            <option>9 AM</option>
-            <option>10 AM</option>
-          </select>
-          <p>:</p>
-          <select>
-            <option>10</option>
-            <option>20</option>
-            <option>30</option>
-            <option>40</option>
-            <option>50</option>
-            <option>59</option>
-          </select>
+    const childID = useSelector(state => state.childs.childID);
+    const [initialData, setInitialData] = useState({time: '', type: '', toilet: '', note: ''});
+    return (
+        <div className="card">
+            <div className="card-header">
+                Toilet
+            </div>
+            <div className="card-body">
+                <Formik
+                    initialValues={initialData}
+                    validate={values => {
+                        console.log(values);
+                        const {time, type, toilet, note} = values;
+                        let result = {
+                            time: validateFirstName(time),
+                            type: validateLastName(type),
+                            toilet: validateLastName(toilet),
+                            note: validateLastName(note),
+                        };
+                        result = removeEmptyValues(result);
+                        return result;
+                    }}
+                    onSubmit={(values, {setSubmitting}) => {
+                        if (childID) {
+                            const result = {...values, kid: childID, id: 1};
+                            saveChildToilet(result).then((response) => {
+                                if (response.success) {
+                                    toast.success('Toilet completed successfully!', {
+                                        position: "top-right",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                    });
+                                    setInitialData(initialData);
+                                    return undefined;
+                                }
+                            });
+                        } else {
+                            toast.error('Please select child from the list below!', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                            });
+                            return undefined;
+                        }
+                    }}
+                >
+                    {({
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          handleSubmit,
+                        }) => (
+                        <form onSubmit={handleSubmit}>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <InputField
+                                        type="time"
+                                        name="time"
+                                        placeholder="xxxxxxxxxxxx"
+                                        label="Time"
+                                    />
+                                    <SelectField label="Type" name="type" className="w-100 mb-20">
+                                        {[
+                                            {label: "Diaper", value: 0},
+                                            {label: "Potty", value: 1},
+                                            {label: "Sat on Potty", value: 2},
+                                            {label: "Underwear", value: 3},
+                                        ].map((o) => {
+                                            return (
+                                                <option key={o.value} value={o.value}>{o.label}</option>
+                                            )
+                                        })}
+                                    </SelectField>
+                                    <SelectField label="Toilet" name="toilet" className="w-100 mb-20">
+                                        {[
+                                            {label: "Dry", value: 0},
+                                            {label: "Wet", value: 1},
+                                            {label: "Bowel Movement", value: 2},
+                                            {label: "Peed", value: 3},
+                                            {label: "Applied Cream", value: 3},
+                                            {label: "Had an Accident", value: 3},
+                                        ].map((o) => {
+                                            return (
+                                                <option key={o.value} value={o.value}>{o.label}</option>
+                                            )
+                                        })}
+                                    </SelectField>
+                                    <TextareaField
+                                        label="Notes"
+                                        name="note"
+                                        placeholder="Enter Notes"
+                                    />
+                                </div>
+                            </div>
+                            <button type="submit" className="btn btn-success select-all-btn">
+                                Submit
+                            </button>
+                        </form>
+                    )}
+                </Formik>
+            </div>
         </div>
-        <div className="minimize-time">
-          <span>-5</span>
-          <span>-10</span>
-          <span>-15</span>
-          <span>-30</span>
-          <span>Now</span>
-        </div>
-        <h3>Type</h3>
-        <div className="fluid-items-container">
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Diaper</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Potty</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Sat on potty</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Underwear</p>
-          </div>
-        </div>
-
-        <h3>Toilet</h3>
-        <div className="fluid-items-container">
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Dry</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Wet</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Powed Movement</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Peed</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Applied cream</p>
-          </div>
-          <div className="fluid-item">
-            <input type="radio" name="fluid" />
-            <p>Had an accident</p>
-          </div>
-        </div>
-        <div className="note-container">
-          <h3>Notes</h3>
-          <textarea></textarea>
-        </div>
-        <Button
-          variant="contained"
-          className="btn-end"
-          style={{ marginTop: "15px" }}
-        >
-          Create Entry
-        </Button>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Toilet;
