@@ -12,6 +12,36 @@ export const getAllChildBelongsToClass =  async (id) => {
     }
 }
 
+export const signInChild =  async (params) => {
+    try {
+        const response = await fetch(`http://3.142.228.212/api/signin_kid_class`, {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+            },
+            "body": JSON.stringify(params)
+        });
+        return await response.json();
+    } catch (e) {
+        return e;
+    }
+}
+
+export const signOutChild =  async (params) => {
+    try {
+        const response = await fetch(`http://3.142.228.212/api/signout_kid_class`, {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+            },
+            "body": JSON.stringify(params)
+        });
+        return await response.json();
+    } catch (e) {
+        return e;
+    }
+}
+
 export const saveChildTemperature =  async (params) => {
     try {
         const response = await fetch(`http://3.142.228.212/api/save_temprature_activity`, {

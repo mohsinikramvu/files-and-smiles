@@ -79,9 +79,11 @@ function Food() {
                                     </SelectField>
                                     <SelectField label="Quantity" name="quantity" className="w-100 mb-20">
                                         {[
-                                            {label: "Breakfast", value: 0},
-                                            {label: "Lunch", value: 1},
-                                            {label: "Others", value: 2},
+                                            {label: "All", value: 0},
+                                            {label: "Most", value: 1},
+                                            {label: "Some", value: 2},
+                                            {label: "None", value: 3},
+                                            {label: "Not applicable N/A", value: 4},
                                         ].map((o) => {
                                             return (
                                                 <option key={o.value} value={o.value}>{o.label}</option>
