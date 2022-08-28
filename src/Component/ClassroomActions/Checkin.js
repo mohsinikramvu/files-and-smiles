@@ -6,17 +6,103 @@ import "./card.css";
 import Button from "@mui/material/Button";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AddEpiComponent from "./AddEpi";
+import {toast, ToastContainer} from "react-toastify";
+import {signInChild, signOutChild} from "../../services/childrens";
+import allActions from "../../actions";
+import {useDispatch, useSelector} from "react-redux";
 // import {useDispatch} from "react-redux";
 // import allActions from "../../actions";
 
 const CheckinComponent = ({childList}) => {
     const [tab, setTab] = useState("");
+    const childID = useSelector(state => state.childs.childID);
     const handleTab = (item) => {
+        if (childID === 0) {
+            toast.error('Please child check in first!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return undefined;
+        }
         setTab(item);
     }
-    // const dispatch = useDispatch();
-    const childCheckInStatus = (i, checkInStatus) => {
-        // dispatch(allActions.putCheckInStatus({child: i, checkInStatus}));
+    const dispatch = useDispatch();
+    const classID = useSelector(state => state.classrooms.classroomID);
+    const checkInChildStatus = (id) => {
+        if (id === undefined || id === 0) {
+            toast.error('Please select child from the list below!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return undefined;
+        } else {
+            const result = {kid: id, teacher: 1};
+            signInChild(result).then((response) => {
+                if (response.success) {
+                    toast.success('Child check in successfully!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    const result = {
+                        status: true,
+                        selectedChild: id
+                    }
+                    dispatch(allActions.putCheckInStatus(result))
+                    return undefined;
+                }
+            });
+        }
+    }
+    const checkOutChildStatus = (id) => {
+        if (id === undefined || id === 0) {
+            toast.error('Please select child from the list below!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return undefined;
+        } else {
+            const result = {kid: id, teacher: 1, room: classID};
+            signOutChild(result).then((response) => {
+                if (response.success) {
+                    toast.success('Child check out successfully!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    const result = {
+                        status: false,
+                        selectedChild: id
+                    }
+                    dispatch(allActions.putCheckInStatus(result))
+                    // navigate("/classroom-actions");
+                    return undefined;
+                }
+            });
+        }
     }
     return (
         <div className="card">
@@ -152,7 +238,7 @@ const CheckinComponent = ({childList}) => {
                                                     <p>{item.checkin_status === 0 ? 'Not Present' : 'Present'}</p>
                                                 </td>
                                                 <td className='listTwo-three staff-btns'>
-                                                    <Button className='btn' variant='contained' onClick={() => childCheckInStatus(item, true)}>
+                                                    <Button className='btn' variant='contained' onClick={() => item.checkin_status === 0 ? checkInChildStatus(item.id) : checkOutChildStatus(item.id)}>
                                                         <svg
                                                             width='24'
                                                             height='24'
@@ -177,12 +263,13 @@ const CheckinComponent = ({childList}) => {
                                 ) : <p>There is no record exist in this classroom.</p>}
                                 </tbody>
                             </table>
-                            {tab !== "" && tab === "addEpi" ?
+                            {tab !== "" && childID && tab === "addEpi" ?
                                 <AddEpiComponent /> : null}
                         </div>
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

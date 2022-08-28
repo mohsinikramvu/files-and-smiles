@@ -1,6 +1,4 @@
 import React from "react";
-// import AddEntry from "./addEntry/AddEntry";
-// import {Button} from "@mui/material";
 import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
@@ -16,29 +14,104 @@ import WcOutlinedIcon from "@mui/icons-material/WcOutlined";
 import SensorDoorOutlinedIcon from "@mui/icons-material/SensorDoorOutlined";
 import AddEntery from "../ClassRoster/AddEntery/AddEntery";
 import {NavLink, Outlet} from "react-router-dom";
-//import img from "../ClassRoster/assests/girl.png";
 import {useDispatch, useSelector} from "react-redux";
-// import {Form, Formik} from "formik";
-// import SelectField from "../Common/SelectField";
-// import {toast} from "react-toastify";
-// import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import allActions from "../../actions";
+import {signInChild, signOutChild} from "../../services/childrens";
 
-function NavOptions({ selectedChild, notifyAction }) {
+function NavOptions({ selectedChild, notifyAction, dispatch, childCheckInStatus }) {
+    const classID = useSelector(state => state.classrooms.classroomID);
+    const checkInChild = () => {
+        if (selectedChild === undefined || selectedChild === 0) {
+            toast.error('Please select child from the list below!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return undefined;
+        } else {
+            const result = {kid: selectedChild, teacher: 1};
+            signInChild(result).then((response) => {
+                if (response.success) {
+                    toast.success('Child check in successfully!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    const result = {
+                        status: true,
+                        selectedChild
+                    }
+                    dispatch(allActions.putCheckInStatus(result))
+                    return undefined;
+                }
+            });
+        }
+    }
+    const checkOutChild = () => {
+        if (selectedChild === undefined || selectedChild === 0) {
+            toast.error('Please select child from the list below!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return undefined;
+        } else {
+            const result = {kid: selectedChild, teacher: 1, room: classID};
+            signOutChild(result).then((response) => {
+                if (response.success) {
+                    toast.success('Child check out successfully!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    const result = {
+                        status: false,
+                        selectedChild
+                    }
+                    dispatch(allActions.putCheckInStatus(result))
+                    // navigate("/classroom-actions");
+                    return undefined;
+                }
+            });
+        }
+    }
     return (
         <>
             <div className="card bg-transparent border-0 mb-20">
                 <div className="card-body d-flex flex-wrap justify-content-between align-items-center gap-3 p-0">
                     {/*<NavLink to="checkin" className="Link White">*/}
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="" className="Link White">
                         <AddEntery
+                            onClick={checkInChild}
                             imgsrc={<ArrowCircleRightOutlinedIcon className="icon" />}
                             imgtitle="check in"
                         />
+                    </NavLink> : <AddEntery
+                        onClick={checkInChild}
+                        imgsrc={<ArrowCircleRightOutlinedIcon className="icon" />}
+                        imgtitle="check in"
+                    />}
                     {/*</NavLink>*/}
     
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="activity" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="activity" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<AccessTimeOutlinedIcon className="icon" />}
@@ -49,7 +122,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<AccessTimeOutlinedIcon className="icon" />}
                         imgtitle="Activity"
                     />}
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="health" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="health" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<LocalHospitalOutlinedIcon className="icon" />}
@@ -60,7 +133,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<LocalHospitalOutlinedIcon className="icon" />}
                         imgtitle="Health"
                     /> }
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="temperature" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="temperature" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<ThermostatAutoOutlinedIcon className="icon" />}
@@ -71,7 +144,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<ThermostatAutoOutlinedIcon className="icon" />}
                         imgtitle="Temperature"
                     />}
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="fluids" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="fluids" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<WidgetsOutlinedIcon className="icon" />}
@@ -83,7 +156,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Fluids"
                     />}
     
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="food" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="food" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<SetMealOutlinedIcon className="icon" />}
@@ -94,7 +167,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<SetMealOutlinedIcon className="icon" />}
                         imgtitle="Food"
                     />}
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="sleep" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="sleep" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<BedtimeOutlinedIcon className="icon" />}
@@ -106,7 +179,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Sleep"
                     />}
     
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="toilet" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="toilet" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<ShowerOutlinedIcon className="icon" />}
@@ -118,7 +191,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Toilet"
                     />}
     
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="mood" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="mood" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<SentimentDissatisfiedOutlinedIcon className="icon" />}
@@ -130,7 +203,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Mood"
                     />}
     
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="supplies" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="supplies" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<BlenderOutlinedIcon className="icon" />}
@@ -142,7 +215,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Supplies"
                     />}
     
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="notes" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="notes" className="Link White">
                         <AddEntery
                             onClick={notifyAction}
                             imgsrc={<DescriptionOutlinedIcon className="icon" />}
@@ -154,7 +227,7 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgtitle="Notes"
                     />}
     
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="nameToFace" className="Link White">
+                    {selectedChild && childCheckInStatus && selectedChild !== 0 ? <NavLink to="nameToFace" className="Link White">
                     <AddEntery
                         onClick={notifyAction}
                         imgsrc={<WcOutlinedIcon className="icon" />}
@@ -168,14 +241,14 @@ function NavOptions({ selectedChild, notifyAction }) {
                         imgsrc={<SensorDoorOutlinedIcon className="icon" />}
                         imgtitle="Move rooms"
                     />
-                    {selectedChild && selectedChild !== 0 ? <NavLink to="checkout" className="Link White">
+                    {selectedChild && !childCheckInStatus && selectedChild !== 0 ? <NavLink to="" className="Link White">
                         <AddEntery
-                            onClick={notifyAction}
+                            onClick={checkOutChild}
                             imgsrc={<ArrowCircleRightOutlinedIcon className="icon" />}
                             imgtitle="Check out"
                         />
                     </NavLink> : <AddEntery
-                        onClick={notifyAction}
+                        onClick={checkOutChild}
                         imgsrc={<ArrowCircleRightOutlinedIcon className="icon" />}
                         imgtitle="Check out"
                     />}
@@ -185,8 +258,7 @@ function NavOptions({ selectedChild, notifyAction }) {
     );
 }
 
-function ApplyToSection({ childList, childID }) {
-    const dispatch = useDispatch();
+function ApplyToSection({ childList, childID, dispatch }) {
     const handleChange = (event) => {
         dispatch(allActions.putChildID(event.target.value));
     }
@@ -212,15 +284,17 @@ function ApplyToSection({ childList, childID }) {
 }
 
 const ClassroomActionsComponent = () => {
+    const dispatch = useDispatch();
     const childList = useSelector(state => {
         if (state.childs) {
             return state.childs.list;
         }
         return undefined
     });
+    const childCheckInStatus = useSelector(state => state.childs.checkInStatus);
     const childID = useSelector(state => state.childs.childID);
     const notifyAction = () => {
-        if (childID === undefined || childID === 0) {
+        if (!childCheckInStatus && (childID === undefined || parseInt(childID) === 0)) {
             toast.error('Please select child from the list below!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -231,14 +305,24 @@ const ClassroomActionsComponent = () => {
                 progress: undefined,
             });
             return undefined;
+        } else if (!childCheckInStatus) {
+            toast.error('Please check in child first!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     }
     return (
         <>
             <div className="row m-auto w-100">
                 <div className="col-md-12 mb-20">
-                    <NavOptions selectedChild={childID} notifyAction={notifyAction} />
-                    <ApplyToSection childList={childList} childID={childID} />
+                    <NavOptions selectedChild={childID} notifyAction={notifyAction} dispatch={dispatch} childCheckInStatus={childCheckInStatus} />
+                    <ApplyToSection childList={childList} childID={childID} dispatch={dispatch} />
                     <ToastContainer />
                     <Outlet />
                 </div>

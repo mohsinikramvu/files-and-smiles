@@ -33,7 +33,7 @@ function Sleep() {
                     }}
                     onSubmit={(values) => {
                         if (childID) {
-                            const result = {...values, kid: childID, id: 1};
+                            const result = {...values, kid: childID, id: 1, sleep: values.sleep[0]};
                             saveChildSleep(result).then((response) => {
                                 if (response.success) {
                                     toast.success('Sleep Activity completed successfully!', {
