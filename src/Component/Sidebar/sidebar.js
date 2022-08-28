@@ -118,14 +118,14 @@ function Sidebar() {
             let result = Lists.find((item, i) => itemIndex === i && item)
             setActive(result);
         }
-        if (clsList.length === 0) {
+        if (clsList && clsList.length === 0) {
             getAllClassroomsService().then((response) => {
                 if (response) {
                     dispatch(allActions.getAllClassrooms(response.data));
                 }
             });
         }
-    }, [location, dispatch, clsList.length])
+    }, [location, dispatch, clsList])
     
     return (
         <div className="navigation">
