@@ -1,6 +1,7 @@
 import { getAllClassrooms, createClassroom, putClassroomID } from "./classroomActions"
 import { getAllStaff } from "./staffActions"
 import { getAllChilds, putChildID, putCheckInStatus } from "./childActions"
+import { putUserLoggedInDetail, logoutUser } from "./userActions"
 
 const allActions = {
     getAllClassrooms,
@@ -9,7 +10,9 @@ const allActions = {
     getAllStaff,
     getAllChilds,
     putChildID,
-    putCheckInStatus
+    putCheckInStatus,
+    putUserLoggedInDetail,
+    logoutUser
 }
 
 export default allActions

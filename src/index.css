@@ -18,6 +18,10 @@ html, body {
     background-color: var(--blue);
 }
 
-body {
+body.loggedIn {
     background-color: var(--blue) !important;
 }
+body.loggedOut {
+    background-color: var(--white) !important;
+}
+

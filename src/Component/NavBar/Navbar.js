@@ -4,6 +4,7 @@ import '../NavBar/navbar.css'
 import {useDispatch, useSelector} from "react-redux";
 import {getAllChildBelongsToClass} from "../../services/childrens";
 import allActions from "../../actions";
+import {Button} from "@mui/material";
 
 function Navbar(props) {
     const dispatch = useDispatch();
@@ -14,11 +15,15 @@ function Navbar(props) {
         return undefined;
     });
     const classID = useSelector(state => state.classrooms.classroomID);
+    const userLoggedInStatus = useSelector(state => state.users.isLoggedInStatus);
     const handleChange = (event) => {
         dispatch(allActions.putClassroomID(event.target.value));
         getAllChildBelongsToClass(event.target.value).then((response) => {
             dispatch(allActions.getAllChilds(response.data));
         })
+    }
+    const handleLogOut = () => {
+        dispatch(allActions.logoutUser());
     }
     return (
         <>
@@ -34,8 +39,11 @@ function Navbar(props) {
                         })}
                     </select>
                 </div>
-                <div className='img'>
-                    <img src={Profile} alt="profile "/>
+                <div className="d-flex flex-row justify-content-center gap-3 align-items-center">
+                    {userLoggedInStatus && <Button className='add-btn red' onClick={handleLogOut}>Log Out</Button>}
+                    <div className='img'>
+                        <img src={Profile} alt="profile "/>
+                    </div>
                 </div>
             </div>
         </>
