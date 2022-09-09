@@ -5,8 +5,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllChildBelongsToClass} from "../../services/childrens";
 import allActions from "../../actions";
 import {Button} from "@mui/material";
+import dayjs from "dayjs";
 
 function Navbar(props) {
+    const currentDate = dayjs(new Date()).format("DD/MM/YYYY");
+    const monthDate = dayjs(new Date()).format("MMM DD");
+    const getDayName = (dateStr, locale) => {
+      let date = new Date(dateStr);
+      return date.toLocaleDateString(locale, { weekday: 'long' });
+    }
+    const day = getDayName(currentDate, "en");
     const dispatch = useDispatch();
     const list = useSelector(state => {
         if (state.classrooms) {
@@ -29,7 +37,7 @@ function Navbar(props) {
         <>
             <div className={`page-header Navbar-content px-5 d-flex flex-wrap justify-content-between align-items-center ${props.fixed ? 'position-fixed' : 'position-relative'}`}>
                 <div className="header-content d-flex flex-column">
-                    <h2>Wednesday, Apr 6</h2>
+                    <h2>{day}, {monthDate}</h2>
                     <select name="classroom" id="classroom" className="form-control" onChange={handleChange} value={classID}>
                         <option value={0}>Select a classroom</option>
                         {list && list.length > 0 && list.map((o) => {
